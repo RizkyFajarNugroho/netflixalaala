@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Streaming</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), 
+                        url('https://c4.wallpaperflare.com/wallpaper/969/547/618/tenki-no-ko-rain-night-city-city-lights-hd-wallpaper-preview.jpg');
+            background-size: cover;
+          
+            background-position: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .content {
+            padding: 20px;
+            margin-left: 0; /* Sidebar akan menggeser ini */
+            transition: margin-left 0.3s ease-in-out;
+        }
+        .menu-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: transparent;
+            border: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1100;
+        }
+        .container {
+            margin-top: 100px;
+            padding: 20px;
+            text-align: center;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 5px 15px;
+            margin: 20px auto;
+            width: fit-content;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            transform: perspective(500px) rotateX(5deg);
+        }
+        .search-container:focus-within {
+            transform: perspective(500px) rotateX(0deg) scale(1.1);
+            box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.5);
+        }
+        .search-input {
+            padding: 8px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            width: 180px;
+            background: transparent;
+            color: white;
+            outline: none;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .anime-card {
+            background: rgba(34, 34, 34, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            width: 200px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+        .anime-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        .anime-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+      
+        .anime-title {
+            padding: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center; 
+        }
+     
+        
+        .watch-button {
+            background: #ff4500;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5);
+            width: 90%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .watch-button:hover {
+            background: #e03e00;
+            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.7);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- Tempat Sidebar akan dimuat -->
+    <div id="sidebar-container"></div>
+
+    <div class="content">
+      
+    </div>
+    <header>
+        <h2>Anime Streaming</h2>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Cari Anime...">
+        </div>
+
+        <h2>Trending Anime</h2>
+        <div class="anime-grid" id="anime-list">
+            <div class="anime-card" data-title="One Piece">
+                <img src="https://cdn0-production-images-kly.akamaized.net/_4CqfARJya8TEd8vKpcJ9Oj6kRQ=/1200x900/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4968624/original/098043700_1728900483-MV5BNjMzZWQ0ZjktZTEwMC00NGQ1LTlmMjAtNGRhYTc1ZDk5ZjJhXkEyXkFqcGc_._V1_.jpg" alt="One Piece">
+                <div class="anime-title">One Piece</div>
+                <button class="watch-button" onclick="playAnime('video/onepiece.mp4', 'One Piece')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Attack on Titan">
+                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10701949_b_v8_ah.jpg" alt="Attack on Titan">
+                <div class="anime-title">Attack on Titan</div>
+                <button class="watch-button" onclick="playAnime('video/aot.mp4', 'Attack on Titan')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Tenki No Ko">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/1704034700351624508/1FC5AC1E1C156C5365FBDF5B665741C8E44B020E/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" alt="Tenki No Ko">
+                <div class="anime-title">Tenki No Ko</div>
+                <button class="watch-button" onclick="playAnime('video/D21 FUN Weathering with you tenki no ko 2019 mp4.mp4', 'Tenki No Ko')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Suzume No Tojimari">
+                <img src="https://i.pinimg.com/736x/6e/b8/6b/6eb86b0e3e59d015938e823261710d6a.jpg" alt="Suzume No Tojimari">
+                <div class="anime-title">Suzume No Tojimari</div>
+                <button class="watch-button" onclick="playAnime('video/D21 FUN Suzume 2022 1688402661 mp4.mp4', 'Suzume No Tojimari')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Doraemon Stand By Me 2 ">
+                <img src="https://awsimages.detik.net.id/community/media/visual/2021/04/22/stand-by-me-doraemon-2.jpeg?w=650" alt="Suzume No Tojimari">
+                <div class="anime-title">Doraemon Stand By Me 2 </div>
+                <button class="watch-button" onclick="playAnime('video/D21 FUN Stand By Me Doraemon 2 2020 1701740678 mp4.mp4', 'Doraemon Stand By Me 2 ')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Summer Ghost">
+                <img src="https://i.scdn.co/image/ab67616d0000b2731eb9e34acd263ee7b2ee74fc" alt="Suzume No Tojimari">
+                <div class="anime-title">"Summer Ghost</div>
+                <button class="watch-button" onclick="playAnime('video/summer ghost 2021 mp4.mp4', 'Summer Ghost')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="Ride Your Wave">
+                <img src="https://picfiles.alphacoders.com/598/598961.jpeg" alt="Suzume No Tojimari">
+                <div class="anime-title">"Ride Your Wave</div>
+                <button class="watch-button" onclick="playAnime('video/D21 FUN Ride your wave kimi to nami ni noretara 2019 mp4 (1).mp4.crdownload', 'Ride Your Wave')">Tonton</button>
+            </div>
+            <div class="anime-card" data-title="I want Eat Your Pancreas">
+                <img src="https://w0.peakpx.com/wallpaper/165/551/HD-wallpaper-haruki-x-sakura-anime-anime-x-reality-haruki-shiga-kimi-no-suizou-wo-tabetai-manga-sakura-yamauchi-xaons-thumbnail.jpg" alt="Suzume No Tojimari">
+                <div class="anime-title">"I Want Eat Your Pancreas</div>
+                <button class="watch-button" onclick="playAnime('video/D21 FUN I want to eat your pancreas kimi no suizo wo tabetai 2018 mp4.mp4', 'I want Eat Your Pancreas')">Tonton</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function playAnime(videoSrc, animeTitle) {
+            window.location.href = `tonton.html?video=${encodeURIComponent(videoSrc)}&title=${encodeURIComponent(animeTitle)}`;
+        }
+
+        document.getElementById('search-input').addEventListener('keyup', function () {
+            let filter = this.value.toLowerCase();
+            let animeCards = document.querySelectorAll('.anime-card');
+
+            animeCards.forEach(card => {
+                let title = card.getAttribute('data-title').toLowerCase();
+                card.style.display = title.includes(filter) ? "block" : "none";
+            });
+        });
+        fetch("sidebarindex.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sidebar-container").innerHTML = data;
+            })
+            .catch(error => console.error("Gagal memuat sidebar:", error));
+
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            let content = document.querySelector(".content");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-260px";
+                content.style.marginLeft = "0";
+            } else {
+                sidebar.style.left = "0px";
+                content.style.marginLeft = "250px";
+            }
+        }
+    </script>
+</body>
+</html>

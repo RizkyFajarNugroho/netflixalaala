@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonton Anime</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 560px; /* Mirip ukuran YouTube */
+            max-width: 90%;
+            aspect-ratio: 16 / 9; /* Pastikan tetap 16:9 */
+            background: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+        }
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .control-button {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .control-button:hover {
+            background: #e03e00;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 id="anime-title">Tonton Anime</h2>
+    </header>
+    <div class="container">
+        <h3 id="anime-name">Judul Anime</h3>
+        <div class="video-container">
+            <div class="video-wrapper">
+                <video id="anime-video" controls autoplay playsinline>
+                    <source src="video/Snaptik.app_7284377585851682056.mp4" type="video/mp4">
+                    <source src="video/D21 FUN Weathering with you tenki no ko 2019 mp4.mp4" type="video/mp4">
+                    <source src="video/Snaptik.app_7284377585851682056.mp4" type="video/mp4">
+                    <source src="video/D21 FUN Suzume 2022 1688402661 mp4.mp4" type="video/mp4">
+                    <source src="video/D21 FUN Stand By Me Doraemon 2 2020 1701740678 mp4.mp4" type="video/mp4">
+                    <source src="video/D21 FUN Ride your wave kimi to nami ni noretara 2019 mp4 (1).mp4.crdownload" type="video/mp4">
+                    <source src="video/summer ghost 2021 mp4.mp4" type="video/mp4">
+                    <source src="video/D21 FUN I want to eat your pancreas kimi no suizo wo tabetai 2018 mp4.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+            <div class="controls">
+                <button class="control-button" onclick="toggleMute()">🔊 Mute/Unmute</button>
+                <button class="control-button" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+            </div>
+        </div>
+        <button class="control-button" onclick="window.location.href='index.html'">Kembali</button>
+    </div>
+
+    <script>
+        const video = document.getElementById("anime-video");
+
+        // Ambil parameter dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoSrc = urlParams.get('video');
+        const animeTitle = urlParams.get('title');
+
+        // Setel judul anime
+        if (animeTitle) {
+            document.getElementById('anime-name').textContent = animeTitle;
+            document.getElementById('anime-title').textContent = "Tonton " + animeTitle;
+        }
+
+        // Setel video source dari URL jika ada
+        if (videoSrc) {
+            video.src = decodeURIComponent(videoSrc);
+        }
+
+        // Fungsi Mute/Unmute
+        function toggleMute() {
+            video.muted = !video.muted;
+        }
+
+        // Fungsi Fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                video.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>

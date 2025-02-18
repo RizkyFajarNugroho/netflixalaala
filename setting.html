@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .settings-container {
+            max-width: 400px;
+            margin: auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        button {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e03e00;
+        }
+    </style>
+</head>
+<body>
+    <h2>⚙️ Pengaturan</h2>
+    <div class="settings-container">
+        <div class="setting-item">
+            <span>Mode Gelap</span>
+            <button onclick="toggleDarkMode()">🌙</button>
+        </div>
+        <div class="setting-item">
+            <span>Hapus Watchlist</span>
+            <button onclick="clearWatchlist()">🗑️</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            let body = document.body;
+            if (body.style.backgroundColor === "black") {
+                body.style.backgroundColor = "white";
+                body.style.color = "black";
+            } else {
+                body.style.backgroundColor = "black";
+                body.style.color = "white";
+            }
+        }
+
+        function clearWatchlist() {
+            localStorage.removeItem("watchlist");
+            alert("Watchlist telah dihapus!");
+        }
+    </script>
+</body>
+</html>

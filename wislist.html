@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .anime-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .anime-card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 200px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+        .anime-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        .anime-title {
+            padding: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>📺 Watchlist Anime</h2>
+    <p>Anime favorit yang telah kamu tambahkan.</p>
+
+    <div class="anime-list" id="watchlist-container">
+        <p>Tidak ada anime di watchlist.</p>
+    </div>
+
+    <script>
+        let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+
+        function loadWatchlist() {
+            let container = document.getElementById("watchlist-container");
+            container.innerHTML = "";
+
+            if (watchlist.length === 0) {
+                container.innerHTML = "<p>Tidak ada anime di watchlist.</p>";
+                return;
+            }
+
+            watchlist.forEach(anime => {
+                let card = document.createElement("div");
+                card.classList.add("anime-card");
+                card.innerHTML = `
+                    <img src="${anime.image}" alt="${anime.title}">
+                    <div class="anime-title">${anime.title}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        loadWatchlist();
+    </script>
+</body>
+</html>
